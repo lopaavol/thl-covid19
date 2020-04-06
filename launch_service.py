@@ -1,3 +1,4 @@
+from datetime import datetime
 import pandas as pd
 import dash
 import dash_core_components as dcc
@@ -32,6 +33,7 @@ def create_layout(app, data):
         dates = data['Date'].drop_duplicates().values
         x = ["{}-{}-{}".format(x[:4],x[4:6],x[6:]) for x in dates]
         cols = data.columns.values[1:-1]
+        now = datetime.now()
         
         values = []
         for sel in selection:
@@ -53,7 +55,7 @@ def create_layout(app, data):
         return {
             'data': values,
             'layout': {
-                'title': 'THL data COVID-19',
+                'title': 'THL data COVID-19, updated {}'.format(now.strftime("%c")),
                 'width': WIDTH,
                 'height': 600
             }
